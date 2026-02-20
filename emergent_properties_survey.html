@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emergent Properties Across Domains: A Survey</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #0d1117; color: #c9d1d9; line-height: 1.7; padding: 2rem; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 { font-size: 2rem; color: #58a6ff; margin-bottom: 0.3rem; border-bottom: 2px solid #30363d; padding-bottom: 1rem; }
+  .subtitle { color: #8b949e; margin-bottom: 2rem; font-size: 0.95rem; }
+  h2 { font-size: 1.4rem; color: #79c0ff; margin: 2.5rem 0 0.5rem 0; }
+  h3 { font-size: 1.1rem; color: #d2a8ff; margin: 1.5rem 0 0.5rem 0; }
+  p { margin-bottom: 1rem; color: #c9d1d9; }
+  .key-insight { background: #161b22; border-left: 4px solid #f0883e; padding: 1rem 1.2rem; margin: 1.5rem 0; border-radius: 0 6px 6px 0; }
+  .key-insight strong { color: #f0883e; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0 2rem 0; font-size: 0.88rem; }
+  th { background: #161b22; color: #58a6ff; text-align: left; padding: 10px 12px; border: 1px solid #30363d; font-weight: 600; position: sticky; top: 0; }
+  td { padding: 8px 12px; border: 1px solid #30363d; vertical-align: top; }
+  tr:nth-child(even) { background: #0d1117; }
+  tr:nth-child(odd) { background: #161b22; }
+  tr:hover { background: #1c2128; }
+  .domain-tag { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin-right: 4px; }
+  .tag-llm { background: #1f3a5f; color: #58a6ff; }
+  .tag-nn { background: #2a1f4e; color: #d2a8ff; }
+  .tag-physics { background: #1f4e3a; color: #56d364; }
+  .tag-bio { background: #4e3a1f; color: #f0883e; }
+  .tag-social { background: #4e1f3a; color: #f778ba; }
+  .tag-compute { background: #3a3a1f; color: #e3b341; }
+  .threshold-cell { color: #56d364; font-family: 'Cascadia Code', 'Fira Code', monospace; font-size: 0.85rem; }
+  .section-intro { color: #8b949e; margin-bottom: 1.2rem; font-style: italic; }
+  .toc { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 1.5rem; margin: 1.5rem 0; }
+  .toc a { color: #58a6ff; text-decoration: none; }
+  .toc a:hover { text-decoration: underline; }
+  .toc ul { list-style: none; padding-left: 1rem; }
+  .toc li { margin: 0.3rem 0; }
+  .caveat { background: #1c1208; border: 1px solid #4e3a1f; border-radius: 6px; padding: 1rem 1.2rem; margin: 1.5rem 0; font-size: 0.9rem; }
+  .caveat strong { color: #f0883e; }
+  .pattern-box { background: #0f1923; border: 1px solid #1f3a5f; border-radius: 8px; padding: 1.2rem; margin: 1.5rem 0; }
+  .pattern-box h3 { margin-top: 0; }
+  .footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #30363d; color: #484f58; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Emergent Properties Across Domains</h1>
+<p class="subtitle">A practical survey of emergent behaviours, the thresholds at which they appear, and the cross-domain patterns that connect them. Compiled February 2026.</p>
+
+<div class="toc">
+  <strong>Contents</strong>
+  <ul>
+    <li><a href="#s1">1. Large Language Models — Emergent Abilities</a></li>
+    <li><a href="#s2">2. Neural Networks — Training Dynamics & Phase Transitions</a></li>
+    <li><a href="#s3">3. Physics — Phase Transitions & Critical Phenomena</a></li>
+    <li><a href="#s4">4. Biology — From Molecules to Ecosystems</a></li>
+    <li><a href="#s5">5. Collective Intelligence — Swarms, Societies & Networks</a></li>
+    <li><a href="#s6">6. Cross-Domain Patterns — The Meta-Table</a></li>
+    <li><a href="#s7">7. Practical Implications for Agent Design</a></li>
+  </ul>
+</div>
+
+<!-- ===== SECTION 1: LLMs ===== -->
+<h2 id="s1">1. Large Language Models — Emergent Abilities</h2>
+<p class="section-intro">These are abilities that appear near-random in small models and jump to above-random at a specific scale threshold. Data from Wei et al. (2022), Ganguli et al. (2022), and BIG-Bench (2022).</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:22%">Emergent Ability</th>
+      <th style="width:16%">Approx. Threshold (Params)</th>
+      <th style="width:16%">Approx. Threshold (FLOPs)</th>
+      <th style="width:46%">What Happened</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Multi-digit arithmetic</strong></td>
+      <td class="threshold-cell">~13B → 175B</td>
+      <td class="threshold-cell">~10²² → 10²³</td>
+      <td>Flat/random accuracy on 3-digit addition up to ~13B params (GPT-3). Performance jumped at 175B. PaLM 540B pushed it further with 4-5 digit operations.</td>
+    </tr>
+    <tr>
+      <td><strong>Multi-task NLU (MMLU)</strong></td>
+      <td class="threshold-cell">~62B → 540B</td>
+      <td class="threshold-cell">~10²² → 10²⁴</td>
+      <td>College-level exam performance (STEM, humanities, social sciences) stayed near random chance (~25%) until PaLM-scale models, then jumped dramatically.</td>
+    </tr>
+    <tr>
+      <td><strong>Word-in-context (WiC)</strong></td>
+      <td class="threshold-cell">~540B</td>
+      <td class="threshold-cell">~10²⁴</td>
+      <td>Identifying the intended meaning of polysemous words. Required very large scale to emerge — one of the later-appearing abilities.</td>
+    </tr>
+    <tr>
+      <td><strong>Chain-of-thought reasoning</strong></td>
+      <td class="threshold-cell">~62B → 100B+</td>
+      <td class="threshold-cell">~10²²</td>
+      <td>Prompting with step-by-step reasoning <em>hurts</em> performance in small models. Only at ~100B+ does it begin to help. The strategy itself is emergent.</td>
+    </tr>
+    <tr>
+      <td><strong>In-context learning (few-shot)</strong></td>
+      <td class="threshold-cell">~175B (GPT-3)</td>
+      <td class="threshold-cell">~3.1×10²³</td>
+      <td>The ability to learn new tasks from a few examples in the prompt without any weight updates. GPT-3's landmark finding. Smaller models couldn't use prompt examples effectively.</td>
+    </tr>
+    <tr>
+      <td><strong>Code generation</strong></td>
+      <td class="threshold-cell">~100B+</td>
+      <td class="threshold-cell">~10²³</td>
+      <td>Writing functional code from natural language descriptions. Not an explicit training objective — emerged from next-token prediction on internet text that happened to include code.</td>
+    </tr>
+    <tr>
+      <td><strong>Instruction following</strong></td>
+      <td class="threshold-cell">~60B+</td>
+      <td class="threshold-cell">~10²²</td>
+      <td>Fine-tuning with instructions <em>hurt</em> smaller models' generalisation. Only above ~60B did instruction-tuning reliably improve performance on unseen tasks.</td>
+    </tr>
+    <tr>
+      <td><strong>Zero-shot chain-of-thought<br>("Let's think step by step")</strong></td>
+      <td class="threshold-cell">~100B+</td>
+      <td class="threshold-cell">~10²³</td>
+      <td>Simply appending "Let's think step by step" to prompts improved reasoning — but only in very large models. Smaller models ignored or were confused by the prompt.</td>
+    </tr>
+    <tr>
+      <td><strong>Self-calibration<br>("Is this answer correct?")</strong></td>
+      <td class="threshold-cell">~52B+ (Anthropic)</td>
+      <td class="threshold-cell">~10²²</td>
+      <td>The ability to predict whether its own answer is correct. A form of metacognition that only appeared at the largest scales tested by Kadavath et al. (2022).</td>
+    </tr>
+    <tr>
+      <td><strong>Cross-lingual transfer</strong></td>
+      <td class="threshold-cell">~100B+</td>
+      <td class="threshold-cell">~10²³</td>
+      <td>Translation between language pairs barely represented in training data (e.g., Portuguese→Japanese), suggesting an internal language-agnostic concept space.</td>
+    </tr>
+    <tr>
+      <td><strong>Theory of mind tasks</strong></td>
+      <td class="threshold-cell">~100B+</td>
+      <td class="threshold-cell">~10²³</td>
+      <td>Reasoning about what other agents believe (false-belief tasks, Sally-Anne test). Performance on these cognitive milestone tasks appeared suddenly at scale.</td>
+    </tr>
+    <tr>
+      <td><strong>Logical deduction (BIG-Bench)</strong></td>
+      <td class="threshold-cell">~100B+</td>
+      <td class="threshold-cell">~10²³</td>
+      <td>Multi-step logical reasoning from premises to conclusions. One of many BIG-Bench tasks showing the characteristic flat-then-jump scaling curve.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="caveat">
+  <strong>⚠️ Important caveat:</strong> Schaeffer et al. (2023) argued that some of these "emergent" jumps may be artefacts of discrete/nonlinear evaluation metrics. When you use continuous metrics (e.g., per-token accuracy instead of exact-match accuracy), many abilities show gradual improvement. The underlying capability builds up smoothly — the <em>measurement</em> makes it look sudden. Both views are useful: the smooth view tells you what's happening internally, the sharp view tells you when it becomes practically useful.
+</div>
+
+<!-- ===== SECTION 2: Neural Networks ===== -->
+<h2 id="s2">2. Neural Networks — Training Dynamics & Phase Transitions</h2>
+<p class="section-intro">Beyond LLM scale, neural networks exhibit phase transitions during training and as architectural features change.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:22%">Phenomenon</th>
+      <th style="width:18%">Threshold / Trigger</th>
+      <th style="width:14%">Domain</th>
+      <th style="width:46%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Grokking</strong></td>
+      <td class="threshold-cell">Training steps: flat for 10³-10⁵ steps, then sudden jump</td>
+      <td><span class="domain-tag tag-nn">Neural Nets</span></td>
+      <td>Networks memorise training data, then much later suddenly generalise perfectly — long after you'd have stopped training. Discovered on modular arithmetic tasks. Internally, the model transitions from a high-complexity memorisation circuit to a low-complexity generalisation circuit. The transition resembles a physical phase transition.</td>
+    </tr>
+    <tr>
+      <td><strong>Induction heads</strong></td>
+      <td class="threshold-cell">~2 attention layers + training time threshold</td>
+      <td><span class="domain-tag tag-nn">Transformers</span></td>
+      <td>Anthropic (Olsson et al.) found that transformers develop a specific circuit ("induction heads") that enables in-context learning. This circuit forms <em>abruptly</em> during training, producing a sharp transition in the model's ability to copy and complete patterns from context. Requires at least 2 self-attention layers.</td>
+    </tr>
+    <tr>
+      <td><strong>Double descent</strong></td>
+      <td class="threshold-cell">Model complexity ≈ interpolation threshold</td>
+      <td><span class="domain-tag tag-nn">Neural Nets</span></td>
+      <td>Classical statistics says test error should increase past the point where the model can perfectly fit training data. Instead, neural networks show a second descent in error — test performance <em>improves again</em> as you keep scaling past the interpolation point.</td>
+    </tr>
+    <tr>
+      <td><strong>Superposition</strong></td>
+      <td class="threshold-cell">Features > neurons (overcomplete regime)</td>
+      <td><span class="domain-tag tag-nn">Neural Nets</span></td>
+      <td>Anthropic's Toy Models of Superposition showed that when networks need to represent more features than they have neurons, they discover a way to store features in superposition — overlapping representations using high-dimensional geometry. This is an emergent encoding strategy.</td>
+    </tr>
+    <tr>
+      <td><strong>Compositional generalisation</strong></td>
+      <td class="threshold-cell">Sufficient data fraction (task-dependent)</td>
+      <td><span class="domain-tag tag-nn">Neural Nets</span></td>
+      <td>The ability to compose learned primitives in novel ways (e.g., learning "jump" and "left" separately, then executing "jump left"). This emerges only when training data exceeds a critical fraction relative to the combinatorial space.</td>
+    </tr>
+    <tr>
+      <td><strong>Feature learning order</strong></td>
+      <td class="threshold-cell">Frequency in data determines learning order</td>
+      <td><span class="domain-tag tag-nn">Neural Nets</span></td>
+      <td>Networks learn features in a specific order dictated by their frequency in the data distribution. Each feature has its own threshold number of samples needed before it "clicks." The overall smooth loss curve is an average of many discrete internal learning events.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="key-insight">
+  <strong>Key insight for agent builders:</strong> The "quanta hypothesis" (Michaud et al.) proposes that smooth scaling laws arise from many discrete internal learning events, each a mini phase-transition. The smooth loss curve is a <em>statistical average</em> over many small "grokking" events happening at different times. This means capabilities are being silently assembled underneath a smooth loss surface — they just become observable when enough sub-circuits have formed.
+</div>
+
+<!-- ===== SECTION 3: Physics ===== -->
+<h2 id="s3">3. Physics — Phase Transitions & Critical Phenomena</h2>
+<p class="section-intro">The original home of "emergence." Physical systems provide the clearest examples of quantitative changes producing qualitative shifts.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:22%">Phenomenon</th>
+      <th style="width:18%">Threshold</th>
+      <th style="width:14%">System</th>
+      <th style="width:46%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Water phase transitions</strong></td>
+      <td class="threshold-cell">0°C (freezing), 100°C (boiling) at 1 atm</td>
+      <td><span class="domain-tag tag-physics">Thermo</span></td>
+      <td>The canonical example. H₂O molecules follow the same physics at all temperatures, but the system exhibits qualitatively different macro properties (solid/liquid/gas) at specific thresholds. No individual molecule is "frozen."</td>
+    </tr>
+    <tr>
+      <td><strong>Ferromagnetism (Ising model)</strong></td>
+      <td class="threshold-cell">Below Curie temperature (e.g., 770°C for iron)</td>
+      <td><span class="domain-tag tag-physics">Stat. Mech.</span></td>
+      <td>Individual atomic spins point in random directions. Below a critical temperature, they spontaneously align, creating a macroscopic magnetic field. No individual spin "decides" to align — it emerges from local interactions. The Ising model is a direct mathematical analog of many emergent phenomena.</td>
+    </tr>
+    <tr>
+      <td><strong>Superconductivity</strong></td>
+      <td class="threshold-cell">Below critical temperature T<sub>c</sub> (material-specific, e.g., 7.2K for lead)</td>
+      <td><span class="domain-tag tag-physics">Condensed Matter</span></td>
+      <td>Electrical resistance drops to exactly zero. Electrons form Cooper pairs and enter a macroscopic quantum state. The property of zero resistance does not exist in any individual electron — it is purely emergent from the collective.</td>
+    </tr>
+    <tr>
+      <td><strong>Bose-Einstein Condensation</strong></td>
+      <td class="threshold-cell">~170 nK (rubidium-87)</td>
+      <td><span class="domain-tag tag-physics">Quantum</span></td>
+      <td>Cool a gas of bosonic atoms below a critical temperature and they collapse into the same quantum state, behaving as a single macroscopic quantum object. A textbook case of emergence from scale.</td>
+    </tr>
+    <tr>
+      <td><strong>Turbulence</strong></td>
+      <td class="threshold-cell">Reynolds number Re > ~2300 (pipe flow)</td>
+      <td><span class="domain-tag tag-physics">Fluid Dynamics</span></td>
+      <td>Below the threshold, fluid flow is smooth (laminar). Above it, chaotic, unpredictable vortices emerge. Same fluid, same equations — but a dimensionless ratio crossing a threshold produces qualitatively new behaviour.</td>
+    </tr>
+    <tr>
+      <td><strong>Percolation threshold</strong></td>
+      <td class="threshold-cell">p<sub>c</sub> ≈ 0.593 (2D square lattice site percolation)</td>
+      <td><span class="domain-tag tag-physics">Network Theory</span></td>
+      <td>Randomly fill lattice sites with probability p. Below p<sub>c</sub>, only small isolated clusters form. At p<sub>c</sub>, a connected cluster spanning the entire system appears <em>instantly</em>. Directly analogous to information propagation thresholds in networks.</td>
+    </tr>
+    <tr>
+      <td><strong>Spontaneous symmetry breaking</strong></td>
+      <td class="threshold-cell">Below critical temperature / energy scale</td>
+      <td><span class="domain-tag tag-physics">Particle Physics</span></td>
+      <td>The Higgs mechanism: the electroweak force "splits" into electromagnetism and the weak force as the universe cools. Particles acquire mass. The laws of physics are symmetric, but the ground state isn't — mass is emergent.</td>
+    </tr>
+    <tr>
+      <td><strong>Criticality / Self-Organised Criticality</strong></td>
+      <td class="threshold-cell">System self-tunes to critical point</td>
+      <td><span class="domain-tag tag-physics">Complexity</span></td>
+      <td>Sandpiles, earthquakes, forest fires — some systems naturally evolve to a critical state where perturbations can cause cascades at all scales (power-law distributions). The "avalanche" behaviour is emergent.</td>
+    </tr>
+    <tr>
+      <td><strong>Spacetime emergence</strong></td>
+      <td class="threshold-cell">Theoretical / large N limit</td>
+      <td><span class="domain-tag tag-physics">Quantum Gravity</span></td>
+      <td>Several quantum gravity proposals (AdS/CFT, loop quantum gravity) suggest that 3D space and time are not fundamental but emerge from quantum entanglement on a lower-dimensional surface. Space itself may be emergent.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ===== SECTION 4: Biology ===== -->
+<h2 id="s4">4. Biology — From Molecules to Ecosystems</h2>
+<p class="section-intro">Biology is where emergence is most visible. Every level of biological organisation exhibits properties absent from the level below.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:22%">Phenomenon</th>
+      <th style="width:18%">Threshold / Scale</th>
+      <th style="width:14%">Level</th>
+      <th style="width:46%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Life itself</strong></td>
+      <td class="threshold-cell">Minimal genome ~480 genes (Mycoplasma)</td>
+      <td><span class="domain-tag tag-bio">Molecular</span></td>
+      <td>No individual macromolecule is alive. Combine proteins, lipids, nucleic acids, and metabolic cycles in the right configuration and "life" appears. Below a minimum complexity threshold (estimated ~480 genes by Venter's synthetic biology work), self-replication fails.</td>
+    </tr>
+    <tr>
+      <td><strong>Consciousness</strong></td>
+      <td class="threshold-cell">~86 billion neurons, trillions of synapses (human brain)</td>
+      <td><span class="domain-tag tag-bio">Neuroscience</span></td>
+      <td>No individual neuron is conscious. Subjective experience emerges from the interaction of vast neural networks. IIT (Integrated Information Theory) quantifies this with φ — consciousness emerges when a system's integrated information exceeds a threshold. Exact threshold unknown but appears to require billions of interconnected units.</td>
+    </tr>
+    <tr>
+      <td><strong>Neural synchronisation</strong></td>
+      <td class="threshold-cell">~40Hz gamma oscillations</td>
+      <td><span class="domain-tag tag-bio">Neuroscience</span></td>
+      <td>Coherent perception (binding problem) correlates with synchronised ~40Hz oscillations across brain regions. Individual neurons fire chaotically; the emergent rhythm enables coherent experience. Appears to require sufficient network density and connectivity.</td>
+    </tr>
+    <tr>
+      <td><strong>Flight</strong></td>
+      <td class="threshold-cell">Organ-system level integration</td>
+      <td><span class="domain-tag tag-bio">Organism</span></td>
+      <td>A classic textbook case. No individual cell can fly. Flight requires coordinated interaction of muscle, bone, feather, cardiovascular, and nervous systems. It's a property of the whole organism, not reducible to any component.</td>
+    </tr>
+    <tr>
+      <td><strong>Quorum sensing in bacteria</strong></td>
+      <td class="threshold-cell">Cell density threshold (species-specific signalling molecule concentration)</td>
+      <td><span class="domain-tag tag-bio">Microbial</span></td>
+      <td>Bacteria release signalling molecules. Below a critical population density, nothing happens. Above it, they collectively switch behaviour — forming biofilms, producing bioluminescence, or activating virulence genes. The decision is emergent from population size.</td>
+    </tr>
+    <tr>
+      <td><strong>Infection/disease threshold</strong></td>
+      <td class="threshold-cell">Minimum infectious dose (pathogen-specific)</td>
+      <td><span class="domain-tag tag-bio">Pathology</span></td>
+      <td>Disease manifests only after a pathogen population exceeds a threshold within the host. Below it, immune response wins. A non-linear dose-response where a quantitative increase crosses a qualitative boundary.</td>
+    </tr>
+    <tr>
+      <td><strong>Ecosystem stability</strong></td>
+      <td class="threshold-cell">Species diversity thresholds (context-dependent)</td>
+      <td><span class="domain-tag tag-bio">Ecology</span></td>
+      <td>Resilience, nutrient cycling, and climate regulation are properties of ecosystems, not individual species. Below critical biodiversity thresholds, ecosystems can undergo sudden regime shifts (coral reef collapse, forest-to-savanna transitions).</td>
+    </tr>
+    <tr>
+      <td><strong>Morphogenesis (Turing patterns)</strong></td>
+      <td class="threshold-cell">Reaction-diffusion parameters cross critical ratios</td>
+      <td><span class="domain-tag tag-bio">Developmental</span></td>
+      <td>Leopard spots, zebra stripes, finger formation — emerge from simple reaction-diffusion equations with activator/inhibitor chemicals. The pattern is not encoded in any gene. It's emergent from chemistry + geometry + scale.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ===== SECTION 5: Collective Intelligence ===== -->
+<h2 id="s5">5. Collective Intelligence — Swarms, Societies & Networks</h2>
+<p class="section-intro">Where simple agents with simple rules produce intelligent collective behaviour.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:22%">Phenomenon</th>
+      <th style="width:18%">Threshold / Condition</th>
+      <th style="width:14%">System</th>
+      <th style="width:46%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Ant colony optimisation</strong></td>
+      <td class="threshold-cell">Colony size > ~50-100 (species-dependent)</td>
+      <td><span class="domain-tag tag-social">Swarm</span></td>
+      <td>Individual ants follow 2-3 simple pheromone rules. Colonies of sufficient size discover shortest paths, allocate foragers optimally, manage waste, and farm fungi. PNAS research (2022) showed the colony's sensory response threshold itself is a function of colony size — larger colonies make better collective decisions.</td>
+    </tr>
+    <tr>
+      <td><strong>Flocking / Schooling (Vicsek model)</strong></td>
+      <td class="threshold-cell">Agent density > critical density ρ<sub>c</sub>; noise < critical noise η<sub>c</sub></td>
+      <td><span class="domain-tag tag-social">Swarm</span></td>
+      <td>Agents following 3 rules (separation, alignment, cohesion) produce coherent flocking above a critical density. Below it, random motion. A phase transition from disorder to order, directly analogous to the Ising model.</td>
+    </tr>
+    <tr>
+      <td><strong>Market price discovery</strong></td>
+      <td class="threshold-cell">Sufficient market participants + liquidity</td>
+      <td><span class="domain-tag tag-social">Economics</span></td>
+      <td>No individual trader knows the "correct" price. Markets with enough participants converge on prices that aggregate dispersed information (Hayek's "spontaneous order"). Below sufficient participation, prices become erratic and uninformative.</td>
+    </tr>
+    <tr>
+      <td><strong>Network congestion collapse</strong></td>
+      <td class="threshold-cell">Traffic load > ~85% capacity</td>
+      <td><span class="domain-tag tag-social">Networks</span></td>
+      <td>Internet traffic flows smoothly until load exceeds a threshold, then TCP flows globally synchronise at bottlenecks. Congestion "spreads" like a phase transition — a macro property absent from any individual packet or router.</td>
+    </tr>
+    <tr>
+      <td><strong>Viral/information cascades</strong></td>
+      <td class="threshold-cell">R₀ > 1 (basic reproduction number)</td>
+      <td><span class="domain-tag tag-social">Epidemiology</span></td>
+      <td>Whether a pathogen/idea/meme becomes a pandemic or fizzles is determined by R₀ crossing exactly 1. Below 1: dies out. Above 1: exponential spread. A sharp threshold determining a qualitatively different macro outcome from the same micro interactions.</td>
+    </tr>
+    <tr>
+      <td><strong>Boltzmann-like income distribution</strong></td>
+      <td class="threshold-cell">Agents > threshold in free-market conditions</td>
+      <td><span class="domain-tag tag-social">Economics</span></td>
+      <td>Tao (2018) showed that when enough self-interested agents compete in a free market, income distribution spontaneously forms a Boltzmann-like shape — the same distribution found in statistical mechanics. The society effectively self-organises into a Boltzmann machine where each person acts like a neuron. Verified across 66 countries.</td>
+    </tr>
+    <tr>
+      <td><strong>City scaling laws</strong></td>
+      <td class="threshold-cell">Population > ~50,000 (approximate)</td>
+      <td><span class="domain-tag tag-social">Urban Science</span></td>
+      <td>Geoffrey West / Santa Fe Institute showed that cities exhibit superlinear scaling: doubling population increases innovation/GDP per capita by ~15%. Infrastructure scales sublinearly. These scaling laws emerge from the density of human interactions and are not properties of individual people.</td>
+    </tr>
+    <tr>
+      <td><strong>Wisdom of crowds</strong></td>
+      <td class="threshold-cell">~30-50+ independent estimators</td>
+      <td><span class="domain-tag tag-social">Collective</span></td>
+      <td>The average of many independent guesses is more accurate than any individual guess (Galton's ox experiment). Requires independence — the crowd's "intelligence" degrades if agents copy each other (information cascade / herding).</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ===== SECTION 6: Cross-Domain ===== -->
+<h2 id="s6">6. Cross-Domain Patterns — The Meta-Table</h2>
+<p class="section-intro">The most practically useful insight: these phenomena share structural patterns across domains. Understanding the pattern helps predict where emergence will appear next.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:18%">Pattern</th>
+      <th style="width:22%">Mechanism</th>
+      <th style="width:60%">Examples Across Domains</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Phase transition</strong><br>(quantitative → qualitative)</td>
+      <td>Continuous parameter crosses critical value; macro behaviour changes discontinuously</td>
+      <td>
+        <strong>Physics:</strong> Water freezing, ferromagnetism<br>
+        <strong>LLM:</strong> Arithmetic appearing at ~10²² FLOPs<br>
+        <strong>Bio:</strong> Quorum sensing in bacteria<br>
+        <strong>Social:</strong> R₀ crossing 1 in epidemics<br>
+        <strong>NN:</strong> Grokking (memorisation → generalisation)
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Many simple agents → collective intelligence</strong></td>
+      <td>Local interactions between simple units produce global behaviour no unit possesses</td>
+      <td>
+        <strong>Bio:</strong> Neurons → consciousness, cells → organism<br>
+        <strong>LLM:</strong> Parameters → reasoning ability<br>
+        <strong>Social:</strong> Ants → colony optimisation, traders → price discovery<br>
+        <strong>Physics:</strong> Atoms → material properties
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Percolation / connectivity threshold</strong></td>
+      <td>When connections exceed a critical density, information / influence can flow globally</td>
+      <td>
+        <strong>Physics:</strong> Lattice percolation at p<sub>c</sub><br>
+        <strong>NN:</strong> Induction heads requiring ≥2 attention layers<br>
+        <strong>Social:</strong> Network effects (Metcalfe's law), viral spread<br>
+        <strong>Bio:</strong> Neural network connectivity → coherent brain function
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Smooth input → sudden output<br>(metric artefact)</strong></td>
+      <td>Underlying capability improves gradually, but the <em>measurement</em> has a nonlinear threshold</td>
+      <td>
+        <strong>LLM:</strong> Per-digit accuracy smooth but exact-match jumps (Schaeffer et al.)<br>
+        <strong>Bio:</strong> Drug dose-response curves (gradual binding, sudden effect)<br>
+        <strong>Physics:</strong> Nucleation in crystallisation<br>
+        <strong>NN:</strong> Loss decreases smoothly but benchmark scores jump
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Competition between modes</strong></td>
+      <td>Two stable states compete; small parameter change flips which one dominates</td>
+      <td>
+        <strong>NN:</strong> Memorisation vs. generalisation basins in grokking<br>
+        <strong>Physics:</strong> Ferromagnetic vs. paramagnetic phases<br>
+        <strong>Bio:</strong> Cell fate decisions (differentiation)<br>
+        <strong>Social:</strong> Cooperation vs. defection in game theory
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Self-organised criticality</strong></td>
+      <td>System self-tunes to edge of phase transition, maximising sensitivity and information processing</td>
+      <td>
+        <strong>Physics:</strong> Sandpile model, earthquakes<br>
+        <strong>Bio:</strong> Brain operates near criticality (maximises computational capacity)<br>
+        <strong>LLM:</strong> Speculation that effective training pushes models toward "critical" loss values<br>
+        <strong>Social:</strong> Financial markets at the edge of stability
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ===== SECTION 7: Practical Implications ===== -->
+<h2 id="s7">7. Practical Implications for Agent Design</h2>
+
+<div class="pattern-box">
+  <h3>What this means if you're building agents</h3>
+  <p><strong>1. Capabilities are hiding below the surface.</strong> Smooth loss curves conceal discrete internal learning events. Your agent may be "almost" capable of something without any external signal. Implication: probe for abilities you haven't explicitly trained for — they may already be latent.</p>
+  <p><strong>2. Circuit formation is the mechanism.</strong> Emergence in neural networks corresponds to specific circuits assembling (induction heads, arithmetic circuits, etc.). These form abruptly. Implication: for your bilateral attention architecture, expect that hemispheric specialisation may appear as a sudden phase transition rather than gradual differentiation.</p>
+  <p><strong>3. Connectivity thresholds matter.</strong> The percolation pattern applies to agent architectures: there's a critical density of connections between components below which information can't flow globally. Too few connections = isolated components. Too many = noise. The sweet spot is near the percolation threshold — which is also where the Ising model says information processing is maximised.</p>
+  <p><strong>4. Scale + interaction > scale alone.</strong> Ant colonies show that the <em>quality</em> of collective decision-making depends on both the number of agents AND the interaction structure. Simply scaling parameter count without appropriate interaction topology won't produce emergence. Data quality, architecture, and training dynamics all shift the critical thresholds.</p>
+  <p><strong>5. The "grokking" pattern is universal.</strong> Long plateaus followed by sudden jumps appear in modular arithmetic, language learning, translation, and physical systems. If your agents show flat performance for a long time, that doesn't necessarily mean they've failed — the internal reorganisation may be happening beneath the surface. Regularisation accelerates it.</p>
+  <p><strong>6. Measurement shapes what you see.</strong> Choose metrics carefully. Discrete metrics (exact match, pass/fail) create artificial emergence. Continuous metrics (partial credit, per-component accuracy) reveal the gradual buildup. Both views are useful — one for understanding, one for deployment decisions.</p>
+</div>
+
+<div class="footer">
+  <p>Sources: Wei et al. (2022) "Emergent Abilities of LLMs" (TMLR); Schaeffer et al. (2023) "Are Emergent Abilities a Mirage?"; BIG-Bench (2022); Anthropic "In-context Learning and Induction Heads" (2022); Anthropic "Toy Models of Superposition" (2022); Fu et al. (2024) on pre-training loss thresholds; Power et al. (2022) "Grokking" (ICLR); Berti et al. (2025) "Emergent Abilities in LLMs: A Survey"; PNAS (2022) ant colony sensory thresholds; Tao (2018) on Boltzmann income distributions; West (2017) "Scale" on city scaling laws; Anderson (1972) "More Is Different."</p>
+</div>
+
+</div>
+</body>
+</html>
